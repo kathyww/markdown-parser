@@ -1,3 +1,1 @@
-*image*
-
 ![image](img.png)
