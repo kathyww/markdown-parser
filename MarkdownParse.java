@@ -9,6 +9,15 @@ public class MarkdownParse {
 
     public static ArrayList<String> getLinks(String markdown) {
         ArrayList<String> toReturn = new ArrayList<>();
+
+        if (! markdown.contains("[") || ! markdown.contains("]")) {
+            return toReturn;
+        }
+
+        if (! markdown.contains("(") || ! markdown.contains(")")) {
+            return toReturn;
+        }
+
         // find the next [, then find the ], then find the (, then read link upto next )
         int currentIndex = 0;
         while(currentIndex < markdown.length()) {
@@ -23,6 +32,13 @@ public class MarkdownParse {
             
             toReturn.add(markdown.substring(openParen + 1, closeParen));
             currentIndex = closeParen + 1;
+
+            if (! markdown.substring(currentIndex).contains("[") 
+                || ! markdown.substring(currentIndex).contains("]")
+                || ! markdown.substring(currentIndex).contains("(")
+                || ! markdown.substring(currentIndex).contains("[")) {
+                    break;
+                }
         }
         toReturn.add("no link");
 
